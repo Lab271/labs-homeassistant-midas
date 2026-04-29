@@ -8,7 +8,6 @@
 
 - [ ] Open PR from `up-to-spec/2026-04-29` -> `main` and merge once reviewed (solo-maintainer self-merge OK per conventions)
 - [ ] Pre-public audit + flip to public — audit is clean post-genericization; flip itself deferred per CONVENTIONS.md "keep private until the lab is up to spec"
-- [ ] Configure branch protection on `main` — SKIPPED this pass: GitHub free tier blocks branch protection on private repos. Re-attempt after public flip; settings per CONVENTIONS.md: require PR review, status checks, no force-push
 - [ ] (Deferred) Replace hardcoded topology with config-flow-driven IP/port + entity mapping so the integration is genuinely reusable outside Lab271. For now, ships as a fork-and-edit reference (README + inline `EDIT BEFORE USE` comment frame it that way)
 
 ## Decisions needed
@@ -30,7 +29,6 @@ _(none open — all three open questions from the prior pass were resolved by th
 
 ## Deviations from CONVENTIONS.md
 
-- **Branch protection skipped** — Free plan blocks `gh api .../protection` on private repos (403). Conventions requirement deferred until public flip.
 - **Org casing (`LAB271` vs `Lab271`)** — origin URL still uses uppercase `LAB271`. Cosmetic, GitHub URLs are case-insensitive. Skipped this pass.
 - **Config-flow rewrite deferred** — current code is genuinely Lab271-only (channel numbers, DCA assignments, room names hardcoded). Shipping as fork-and-edit reference; rewrite is a follow-up.
 - **Public flip deferred** — per TODO.md / cross-cutting decision; keep private until the lab is up to spec.
