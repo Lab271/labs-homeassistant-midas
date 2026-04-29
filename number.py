@@ -13,7 +13,10 @@ from pythonosc.osc_message_builder import OscMessageBuilder
 
 from .const import DOMAIN
 
-MIXER_IP = "10.32.8.30"
+# EDIT BEFORE USE: connection details and the entity topology in
+# async_setup_entry() below are hardcoded for the Lab271 install.
+# Fork and adjust for your own mixer / routing scheme.
+MIXER_IP = "192.0.2.30"  # TEST-NET-1 placeholder; replace with your mixer's IP
 MIXER_PORT = 10023
 LOCAL_PORT = 10024
 
