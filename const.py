@@ -1,0 +1,1 @@
+DOMAIN = "midas_osc"

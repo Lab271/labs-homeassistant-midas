@@ -1,0 +1,9 @@
+{
+    "domain": "midas_osc",
+    "name": "Midas M32C Amplifier",
+    "config_flow": true,
+    "version": "0.0.2",
+    "requirements": ["python-osc==1.9.0"],
+    "codeowners": ["@LAB271"],
+    "iot_class": "assumed_state"
+}
