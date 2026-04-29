@@ -1,6 +1,6 @@
 {
     "domain": "midas_osc",
-    "name": "Midas M32C Amplifier",
+    "name": "Midas M32C Mixer",
     "config_flow": true,
     "version": "0.0.2",
     "requirements": ["python-osc==1.9.0"],
