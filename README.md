@@ -56,6 +56,10 @@ UI-only via the config flow. The only field is the friendly name shown in HA. Mi
 
 - `python-osc==1.9.0` (declared in [`manifest.json`](manifest.json))
 
+## Naming
+
+The Midas M32C and any other audio device on the network follow the [Lab271 naming convention](https://github.com/Lab271/labs-infra-overview/blob/main/naming.md): the `aud` class with 2-digit zero-padded numbering, e.g. `sbplabaud01`.
+
 ## Owner
 
 `@LAB271` — see [labs-infra-overview](https://github.com/Lab271/labs-infra-overview) for the full Lab271 infra index and conventions.
