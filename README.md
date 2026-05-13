@@ -17,7 +17,7 @@ What this repo does:
 
 What it does **not** do (yet):
 
-- Generic, configurable channel/DCA mapping — the topology is hardcoded in [`number.py`](number.py)
+- Generic, configurable channel/DCA mapping — the topology is hardcoded in [`number.py`](custom_components/midas_osc/number.py)
 - Mixer IP / port configurable from the UI — currently hardcoded
 - Mute, EQ, scenes, or anything beyond fader levels
 
@@ -31,8 +31,8 @@ What it does **not** do (yet):
 ## Install (manual)
 
 ```bash
-cd ~/.homeassistant/custom_components
-git clone https://github.com/Lab271/labs-homeassistant-midas.git midas_osc
+git clone https://github.com/Lab271/labs-homeassistant-midas.git /tmp/midas
+cp -r /tmp/midas/custom_components/midas_osc ~/.homeassistant/custom_components/
 # restart Home Assistant
 ```
 
@@ -42,19 +42,19 @@ UI-only via the config flow. The only field is the friendly name shown in HA. Mi
 
 | Setting | Value | Where |
 | --- | --- | --- |
-| Mixer IP | `10.32.8.30` | [`number.py`](number.py) |
-| Mixer port | `10023` (OSC default) | [`number.py`](number.py) |
-| Local port | `10024` | [`number.py`](number.py) |
+| Mixer IP | `192.0.2.30` (TEST-NET-1 placeholder) | [`number.py`](custom_components/midas_osc/number.py) |
+| Mixer port | `10023` (OSC default) | [`number.py`](custom_components/midas_osc/number.py) |
+| Local port | `10024` | [`number.py`](custom_components/midas_osc/number.py) |
 
 ## Limitations
 
-- **Mixer address is hardcoded.** If you fork this for another setup, edit `MIXER_IP` / `MIXER_PORT` in [`number.py`](number.py). Making this UI-configurable is a planned follow-up.
+- **Mixer address is hardcoded.** If you fork this for another setup, edit `MIXER_IP` / `MIXER_PORT` in [`number.py`](custom_components/midas_osc/number.py). Making this UI-configurable is a planned follow-up.
 - **Channel/DCA mapping is hardcoded.** The list of rooms and sends in `async_setup_entry` matches the Lab271 routing scheme; adapt the entity list for your own setup.
 - **No auth.** OSC over UDP, no encryption — keep the mixer on a trusted network.
 
 ## Dependencies
 
-- `python-osc==1.9.0` (declared in [`manifest.json`](manifest.json))
+- `python-osc==1.9.0` (declared in [`manifest.json`](custom_components/midas_osc/manifest.json))
 
 ## Naming
 
