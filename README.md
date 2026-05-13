@@ -2,7 +2,7 @@
 
 Home Assistant custom integration for the **Midas M32** digital mixer over OSC. Exposes mixer faders and routing sends as Home Assistant `number` entities so you can control room volumes and channel routing from HA dashboards and automations.
 
-**Status:** wip (`v0.0.2`) — works against the Lab271 mixer; topology is currently hardcoded.
+**Status:** wip (`v0.0.3`) — works against the Lab271 mixer; entity topology is hardcoded, connection details are UI-configurable.
 
 ## Scope
 
@@ -18,7 +18,6 @@ What this repo does:
 What it does **not** do (yet):
 
 - Generic, configurable channel/DCA mapping — the topology is hardcoded in [`number.py`](custom_components/midas_osc/number.py)
-- Mixer IP / port configurable from the UI — currently hardcoded
 - Mute, EQ, scenes, or anything beyond fader levels
 
 ## Install (HACS)
@@ -26,7 +25,11 @@ What it does **not** do (yet):
 1. Add this repo as a custom HACS repository: `Lab271/labs-homeassistant-midas`, category *Integration*.
 2. Install **Midas OSC** from HACS.
 3. Restart Home Assistant.
-4. *Settings → Devices & Services → Add Integration → Midas OSC*. Give it a name (default `Midas`).
+4. *Settings → Devices & Services → Add Integration → Midas OSC*. Fill in:
+   - **Name** — friendly name shown in HA (default `Midas`)
+   - **Host** — mixer IP or hostname
+   - **Port** — mixer OSC port (default `10023`)
+   - **Local port** — local UDP port the integration binds to receive replies (default `10024`)
 
 ## Install (manual)
 
@@ -38,18 +41,20 @@ cp -r /tmp/midas/custom_components/midas_osc ~/.homeassistant/custom_components/
 
 ## Configuration
 
-UI-only via the config flow. The only field is the friendly name shown in HA. Mixer connection is currently fixed in code:
+UI-only via the config flow. Fields:
 
-| Setting | Value | Where |
+| Field | Default | Notes |
 | --- | --- | --- |
-| Mixer IP | `192.0.2.30` (TEST-NET-1 placeholder) | [`number.py`](custom_components/midas_osc/number.py) |
-| Mixer port | `10023` (OSC default) | [`number.py`](custom_components/midas_osc/number.py) |
-| Local port | `10024` | [`number.py`](custom_components/midas_osc/number.py) |
+| Name | `Midas` | Friendly name shown in HA |
+| Host | — | Mixer IP or hostname (required) |
+| Port | `10023` | Mixer OSC port |
+| Local port | `10024` | Local UDP port the integration binds to receive replies |
+
+To change these after setup, delete the integration entry and add it again.
 
 ## Limitations
 
-- **Mixer address is hardcoded.** If you fork this for another setup, edit `MIXER_IP` / `MIXER_PORT` in [`number.py`](custom_components/midas_osc/number.py). Making this UI-configurable is a planned follow-up.
-- **Channel/DCA mapping is hardcoded.** The list of rooms and sends in `async_setup_entry` matches the Lab271 routing scheme; adapt the entity list for your own setup.
+- **Channel/DCA mapping is hardcoded.** The list of rooms and sends in `async_setup_entry` matches the Lab271 routing scheme; adapt the entity list in [`number.py`](custom_components/midas_osc/number.py) for your own setup.
 - **No auth.** OSC over UDP, no encryption — keep the mixer on a trusted network.
 
 ## Dependencies
