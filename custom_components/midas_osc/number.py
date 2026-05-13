@@ -4,6 +4,7 @@ from datetime import timedelta
 from homeassistant.components.number import NumberEntity
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.event import async_track_time_interval
 
@@ -11,21 +12,22 @@ from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import AsyncIOOSCUDPServer
 from pythonosc.osc_message_builder import OscMessageBuilder
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_LOCAL_PORT
 
-# EDIT BEFORE USE: connection details and the entity topology in
-# async_setup_entry() below are hardcoded for the Lab271 install.
-# Fork and adjust for your own mixer / routing scheme.
-MIXER_IP = "192.0.2.30"  # TEST-NET-1 placeholder; replace with your mixer's IP
-MIXER_PORT = 10023
-LOCAL_PORT = 10024
+# EDIT BEFORE USE: the entity topology in async_setup_entry() below is
+# hardcoded for the Lab271 install (room/source names, channel numbers,
+# DCA assignments). Connection details (host/port/local port) come from
+# the config entry — set them in the UI when adding the integration.
 
 
 class MidasOSCHub:
     """Shared OSC server — sends queries and receives updates from the mixer."""
 
-    def __init__(self, hass: HomeAssistant):
+    def __init__(self, hass: HomeAssistant, host: str, port: int, local_port: int):
         self._hass = hass
+        self._host = host
+        self._port = port
+        self._local_port = local_port
         self._entities: dict[str, "MidasBaseEntity"] = {}
         self._transport = None
         self._dispatcher = Dispatcher()
@@ -44,11 +46,11 @@ class MidasOSCHub:
         builder = OscMessageBuilder(address=path)
         for arg in args:
             builder.add_arg(arg)
-        self._transport.sendto(builder.build().dgram, (MIXER_IP, MIXER_PORT))
+        self._transport.sendto(builder.build().dgram, (self._host, self._port))
 
     async def start(self):
         loop = asyncio.get_running_loop()
-        server = AsyncIOOSCUDPServer(("0.0.0.0", LOCAL_PORT), self._dispatcher, loop)
+        server = AsyncIOOSCUDPServer(("0.0.0.0", self._local_port), self._dispatcher, loop)
         self._transport, _ = await server.create_serve_endpoint()
 
         # Subscribe and query all current values immediately
@@ -68,7 +70,12 @@ class MidasOSCHub:
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities):
     """Set up Midas OSC number entities."""
     name = entry.data["name"]
-    hub = MidasOSCHub(hass)
+    hub = MidasOSCHub(
+        hass,
+        host=entry.data[CONF_HOST],
+        port=entry.data[CONF_PORT],
+        local_port=entry.data[CONF_LOCAL_PORT],
+    )
 
     entities = [
         # Room volumes (DCA)

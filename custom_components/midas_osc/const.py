@@ -1,1 +1,6 @@
 DOMAIN = "midas_osc"
+
+CONF_LOCAL_PORT = "local_port"
+
+DEFAULT_MIXER_PORT = 10023
+DEFAULT_LOCAL_PORT = 10024
