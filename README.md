@@ -68,3 +68,7 @@ The Midas M32C and any other audio device on the network follow the [Lab271 nami
 ## Owner
 
 `@LAB271` — see [labs-infra-overview](https://github.com/Lab271/labs-infra-overview) for the full Lab271 infra index and conventions.
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). Copyright © 2026 Schuberg Philis / Lab271. See [NOTICE](NOTICE).
