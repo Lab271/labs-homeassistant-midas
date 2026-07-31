@@ -1,0 +1,23 @@
+[project]
+name = "labs-homeassistant-midas"
+version = "0.1.0"
+description = "Home Assistant custom integration for the Midas M32 mixer over OSC"
+requires-python = ">=3.13"
+# Runtime deps are declared in custom_components/midas_osc/manifest.json and
+# installed by Home Assistant. They are listed here only so the tests can run.
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "homeassistant>=2025.1",
+    "pytest>=8.0",
+    "pytest-homeassistant-custom-component>=0.13.236",
+    "python-osc==1.9.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The integration is not an installed package; import it from the repo root.
+pythonpath = ["."]
+# Required by pytest-homeassistant-custom-component's autouse async fixtures.
+asyncio_mode = "auto"
