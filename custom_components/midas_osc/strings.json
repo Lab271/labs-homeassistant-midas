@@ -1,0 +1,148 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to the mixer",
+        "description": "Enter the network details for your Midas mixer. You will define the outputs and inputs in the next steps.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Mixer port",
+          "local_port": "Local port"
+        },
+        "data_description": {
+          "host": "IP address or hostname of the mixer.",
+          "port": "The OSC port the mixer listens on (10023 for M32/X32).",
+          "local_port": "Local UDP port this integration binds to receive replies. Must be unique per mixer."
+        }
+      },
+      "output": {
+        "title": "Add an output",
+        "description": "An output is a destination you mix towards — typically a room or zone. It needs a DCA fader for its overall volume and a mix bus that sources are sent to. Outputs defined so far: {count}.",
+        "data": {
+          "label": "Name",
+          "dca": "DCA number",
+          "bus": "Mix bus number",
+          "add_another": "Add another output"
+        },
+        "data_description": {
+          "label": "Shown in Home Assistant, e.g. \"Space\".",
+          "dca": "The DCA group controlling this output's overall level (1-16).",
+          "bus": "The mix bus sources are sent to (1-16). For stereo bus pairs this is the odd-numbered bus.",
+          "add_another": "Tick to add another output after saving this one."
+        }
+      },
+      "input": {
+        "title": "Add an input",
+        "description": "An input is a source you route to your outputs. Leave the right channel empty for a mono source. A send entity is created for every input/output combination. Inputs defined so far: {count}.",
+        "data": {
+          "label": "Name",
+          "ch_l": "Left channel",
+          "ch_r": "Right channel",
+          "default": "Default level",
+          "add_another": "Add another input"
+        },
+        "data_description": {
+          "label": "Shown in Home Assistant, e.g. \"PC\".",
+          "ch_l": "Input channel on the mixer (1-32). For a mono source, the only channel.",
+          "ch_r": "Right channel of a stereo pair (1-32). Leave empty for a mono source.",
+          "default": "Starting level (0.0-1.0) for this input's sends, until the mixer reports its real value.",
+          "add_another": "Tick to add another input after saving this one."
+        }
+      }
+    },
+    "error": {
+      "duplicate_label": "Another entry already uses this name. Pick a different one.",
+      "empty_label": "A name is required."
+    },
+    "abort": {
+      "already_configured": "A mixer is already configured on this host and local port."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure Midas",
+        "description": "Change the connection details or edit the outputs and inputs. Saving reloads the integration.",
+        "menu_options": {
+          "connection": "Connection settings",
+          "add_output": "Add an output",
+          "add_input": "Add an input",
+          "remove_output": "Remove outputs",
+          "remove_input": "Remove inputs",
+          "levels": "Default output level"
+        }
+      },
+      "connection": {
+        "title": "Connection settings",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Mixer port",
+          "local_port": "Local port"
+        },
+        "data_description": {
+          "host": "IP address or hostname of the mixer.",
+          "port": "The OSC port the mixer listens on (10023 for M32/X32).",
+          "local_port": "Local UDP port this integration binds to receive replies."
+        }
+      },
+      "add_output": {
+        "title": "Add an output",
+        "description": "An output is a destination you mix towards — typically a room or zone.",
+        "data": {
+          "label": "Name",
+          "dca": "DCA number",
+          "bus": "Mix bus number"
+        },
+        "data_description": {
+          "dca": "The DCA group controlling this output's overall level (1-16).",
+          "bus": "The mix bus sources are sent to (1-16)."
+        }
+      },
+      "add_input": {
+        "title": "Add an input",
+        "description": "An input is a source you route to your outputs. Leave the right channel empty for a mono source.",
+        "data": {
+          "label": "Name",
+          "ch_l": "Left channel",
+          "ch_r": "Right channel",
+          "default": "Default level"
+        },
+        "data_description": {
+          "ch_l": "Input channel on the mixer (1-32).",
+          "ch_r": "Right channel of a stereo pair. Leave empty for a mono source.",
+          "default": "Starting level (0.0-1.0) for this input's sends."
+        }
+      },
+      "remove_output": {
+        "title": "Remove outputs",
+        "description": "Select the outputs to remove. Their fader and all sends into them are deleted.",
+        "data": {
+          "outputs": "Outputs to remove"
+        }
+      },
+      "remove_input": {
+        "title": "Remove inputs",
+        "description": "Select the inputs to remove. All of their sends are deleted.",
+        "data": {
+          "inputs": "Inputs to remove"
+        }
+      },
+      "levels": {
+        "title": "Default output level",
+        "description": "The starting level for every output fader, used until the mixer reports its real value.",
+        "data": {
+          "output_default": "Default output level"
+        }
+      }
+    },
+    "error": {
+      "duplicate_label": "Another entry already uses this name. Pick a different one.",
+      "empty_label": "A name is required."
+    },
+    "abort": {
+      "nothing_to_remove": "There is nothing to remove."
+    }
+  }
+}
