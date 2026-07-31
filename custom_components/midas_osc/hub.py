@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Schuberg Philis / Lab271
 """Shared OSC transport for a single Midas mixer."""
 
 import asyncio

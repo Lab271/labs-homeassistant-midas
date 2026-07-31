@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Schuberg Philis / Lab271
 """Turn the user-configured topology into a flat list of entity descriptions.
 
 Pure functions only — no Home Assistant imports beyond ``slugify`` — so this can

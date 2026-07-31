@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Schuberg Philis / Lab271
 from datetime import timedelta
 
 DOMAIN = "midas_osc"

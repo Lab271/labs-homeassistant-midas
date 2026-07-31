@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Schuberg Philis / Lab271
 """Tests for the topology builder.
 
 ``build_entity_specs`` is pure, so these run without a Home Assistant instance.
